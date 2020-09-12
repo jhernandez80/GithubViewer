@@ -1,18 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
   xmlns:tools="http://schemas.android.com/tools"
   android:layout_width="match_parent"
   android:layout_height="wrap_content"
   android:clickable="true"
   android:focusable="true"
-  android:foreground="?attr/selectableItemBackground">
+  android:foreground="?attr/selectableItemBackground"
+  android:paddingVertical="16dp"
+  android:paddingStart="8dp"
+  android:paddingEnd="16dp" >
+
+  <ImageView
+    android:id="@+id/icon"
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+    android:src="@drawable/ic_repo"
+    android:layout_marginTop="2dp"
+    app:layout_constraintBottom_toBottomOf="@id/full_name"
+    app:layout_constraintEnd_toStartOf="@id/guideline"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@id/full_name"
+    app:tint="@color/icons" />
 
   <TextView
-    android:id="@+id/title"
-    android:layout_width="match_parent"
+    android:id="@+id/full_name"
+    android:layout_width="0dp"
     android:layout_height="wrap_content"
-    android:padding="16dp"
-    tools:text="Cool Repo Name" />
+    android:ellipsize="end"
+    android:maxLines="2"
+    android:textSize="19sp"
+    android:textColor="@color/hyper_link"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/guideline"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="intuit/auto" />
 
-</LinearLayout>
+  <TextView
+    android:id="@+id/description"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toEndOf="@id/guideline"
+    app:layout_constraintTop_toBottomOf="@id/full_name"
+    tools:text="Generate releases based on semantic version labels on pull requests." />
+
+  <ImageView
+    android:id="@+id/stargazer_icon"
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="8dp"
+    android:src="@drawable/ic_stargazer"
+    app:layout_constraintStart_toEndOf="@id/guideline"
+    app:layout_constraintTop_toBottomOf="@id/description"
+    app:tint="@color/icons" />
+
+  <TextView
+    android:id="@+id/stargazer_count"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:maxLines="1"
+    app:layout_constraintBottom_toBottomOf="@id/stargazer_icon"
+    app:layout_constraintStart_toEndOf="@id/stargazer_icon"
+    app:layout_constraintTop_toTopOf="@id/stargazer_icon"
+    tools:text="285" />
+
+  <ImageView
+    android:id="@+id/language_icon"
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+    android:layout_marginStart="16dp"
+    android:padding="2dp"
+    android:src="@drawable/ic_round"
+    app:layout_constraintBottom_toBottomOf="@id/stargazer_icon"
+    app:layout_constraintStart_toEndOf="@id/stargazer_count"
+    app:layout_constraintTop_toTopOf="@id/stargazer_icon"
+    app:tint="@color/accent" />
+
+  <TextView
+    android:id="@+id/language"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="2dp"
+    android:maxLines="1"
+    android:src="@drawable/ic_round"
+    app:layout_constraintBottom_toBottomOf="@id/stargazer_icon"
+    app:layout_constraintStart_toEndOf="@id/language_icon"
+    app:layout_constraintTop_toTopOf="@id/stargazer_icon"
+    tools:text="Javascript" />
+
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/guideline"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.10" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

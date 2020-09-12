@@ -17,7 +17,7 @@ data class Repository(
 	val subscriptionUrl: String? = null,
 
 	@field:SerializedName("language")
-	val language: Any? = null,
+	val language: String? = null,
 
 	@field:SerializedName("branches_url")
 	val branchesUrl: String? = null,
@@ -74,13 +74,13 @@ data class Repository(
 	val license: License? = null,
 
 	@field:SerializedName("full_name")
-	val fullName: String? = null,
+	val fullName: String,
 
 	@field:SerializedName("size")
 	val size: Int? = null,
 
 	@field:SerializedName("template_repository")
-	val templateRepository: Any? = null,
+	val templateRepository: String? = null,
 
 	@field:SerializedName("languages_url")
 	val languagesUrl: String? = null,

@@ -3,6 +3,7 @@ package com.livehappyapps.githubviewer.activity
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livehappyapps.githubviewer.adapter.RepositoryAdapter
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
@@ -25,6 +26,7 @@ class MainActivity : AppCompatActivity() {
         binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = repoAdapter
+            addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
         val githubHelper = GithubRetrofitHelper()
