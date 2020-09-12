@@ -1,6 +1,8 @@
 package com.livehappyapps.githubviewer.activity
 
 import android.os.Bundle
+import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -8,10 +10,10 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livehappyapps.githubviewer.adapter.RepositoryAdapter
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
+import com.livehappyapps.githubviewer.network.Resource
 import com.livehappyapps.githubviewer.viewmodel.MainViewModel
 
 /* TODO:
- * Move data loading into a ViewModel
  * Incorporate Issue Activity (Fragment with ViewPager2)
  *
  * Implement Caching
@@ -34,8 +36,20 @@ class MainActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        viewModel.getRepositories().observe(this, Observer { repos ->
-            repoAdapter.repositories = repos
+        viewModel.getRepositories().observe(this, Observer { resource ->
+            when (resource) {
+                is Resource.Success -> {
+                    binding.progress.visibility = View.GONE
+                    repoAdapter.repositories = resource.data!!
+                }
+                is Resource.Loading -> {
+                    binding.progress.visibility = View.VISIBLE
+                }
+                is Resource.Error -> {
+                    binding.progress.visibility = View.GONE
+                    Log.d(TAG, resource.message!!)
+                }
+            }
         })
     }
 
