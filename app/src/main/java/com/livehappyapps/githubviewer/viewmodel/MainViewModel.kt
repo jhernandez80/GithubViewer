@@ -15,25 +15,25 @@ class MainViewModel(
 ) : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
-    private val repositories: MutableLiveData<Resource<List<Repository>>> by lazy {
+    private val _repositories: MutableLiveData<Resource<List<Repository>>> by lazy {
         MutableLiveData<Resource<List<Repository>>>()
     }
+    val repositories: LiveData<Resource<List<Repository>>>
+        get() = _repositories
 
     init {
         fetchRepositories()
     }
 
-    fun getRepositories(): LiveData<Resource<List<Repository>>> = repositories
-
     private fun fetchRepositories() {
         // TODO: Calling the API should be handled by the Repository
-        repositories.value = Resource.Loading()
+        _repositories.value = Resource.Loading
         val repoSubscription = githubHelper.getRepositories("intuit")
             .async()
             .subscribe({ repos ->
-                repositories.value = Resource.Success(repos)
+                _repositories.value = Resource.Success(repos)
             }, { error ->
-                repositories.value = Resource.Error("Error: ${error.message}")
+                _repositories.value = Resource.Error("Error: ${error.message}")
             })
         compositeDisposable.add(repoSubscription)
     }

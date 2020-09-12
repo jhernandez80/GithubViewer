@@ -16,7 +16,7 @@ import com.livehappyapps.githubviewer.viewmodel.MainViewModel
 /* TODO:
  * Incorporate Issue Activity (Fragment with ViewPager2)
  *
- * Implement Caching
+ * Implement Caching (Add a repository)
  * Handle Paging & load more
  */
 class MainActivity : AppCompatActivity() {
@@ -36,18 +36,18 @@ class MainActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        viewModel.getRepositories().observe(this, Observer { resource ->
+        viewModel.repositories.observe(this, Observer { resource ->
             when (resource) {
                 is Resource.Success -> {
                     binding.progress.visibility = View.GONE
-                    repoAdapter.repositories = resource.data!!
+                    repoAdapter.repositories = resource.data
                 }
                 is Resource.Loading -> {
                     binding.progress.visibility = View.VISIBLE
                 }
                 is Resource.Error -> {
                     binding.progress.visibility = View.GONE
-                    Log.d(TAG, resource.message!!)
+                    Log.d(TAG, resource.message)
                 }
             }
         })
