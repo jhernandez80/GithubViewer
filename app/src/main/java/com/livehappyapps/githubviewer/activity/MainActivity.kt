@@ -1,21 +1,26 @@
 package com.livehappyapps.githubviewer.activity
 
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livehappyapps.githubviewer.adapter.RepositoryAdapter
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
-import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
+import com.livehappyapps.githubviewer.viewmodel.MainViewModel
 
+/* TODO:
+ * Move data loading into a ViewModel
+ * Incorporate Issue Activity (Fragment with ViewPager2)
+ *
+ * Implement Caching
+ * Handle Paging & load more
+ */
 class MainActivity : AppCompatActivity() {
 
-    private val compositeDisposable = CompositeDisposable()
     private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,21 +34,9 @@ class MainActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        val githubHelper = GithubRetrofitHelper()
-        val repoSubscription = githubHelper.getRepositories("intuit")
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
-            .subscribe({ repos ->
-                repoAdapter.repositories = repos
-            }, { error ->
-                Log.d(TAG, "Error: ${error.message}")
-            })
-        compositeDisposable.add(repoSubscription)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        compositeDisposable.clear()
+        viewModel.getRepositories().observe(this, Observer { repos ->
+            repoAdapter.repositories = repos
+        })
     }
 
     companion object {
