@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:clickable="true"
+  android:focusable="true"
+  android:foreground="?attr/selectableItemBackground"
+  android:paddingVertical="16dp"
+  android:paddingStart="8dp"
+  android:paddingEnd="16dp">
+
+  <ImageView
+    android:id="@+id/icon"
+    android:layout_width="20dp"
+    android:layout_height="20dp"
+    android:layout_marginTop="2dp"
+    android:src="@drawable/ic_open"
+    app:layout_constraintEnd_toStartOf="@id/start_guideline"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="@id/title" />
+
+  <TextView
+    android:id="@+id/title"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:ellipsize="end"
+    android:maxLines="2"
+    android:textColor="@color/hyper_link"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    app:layout_constraintEnd_toEndOf="@id/barrier"
+    app:layout_constraintStart_toEndOf="@id/start_guideline"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Tests fails if default locale has a different number representation as US locale" />
+
+  <TextView
+    android:id="@+id/number"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="@id/title"
+    tools:text="#2273" />
+
+  <TextView
+    android:id="@+id/description"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:ellipsize="end"
+    android:maxLines="2"
+    app:layout_constraintEnd_toEndOf="@id/barrier"
+    app:layout_constraintStart_toEndOf="@id/start_guideline"
+    app:layout_constraintTop_toBottomOf="@id/title"
+    tools:text="I've checked out the repository and I've tried to run `mvn clean install -P pre-release`. Then some BigDecimal test fails, because my default locale is de_DE and the method `convertToBigDecimal` is using the default locale.\r\n\r\nI've created a fix https://github.com/orisvogel/karate/commit/892ffe621254b3ac2c48a14dedaac8687524de03 for this problem so that the conversion no longer depends on the default locale.\r\n\r\nCan I create an PR for this Problem?\r\n" />
+
+  <LinearLayout
+    android:id="@+id/label_holder"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    app:layout_constraintStart_toEndOf="@id/start_guideline"
+    app:layout_constraintTop_toBottomOf="@id/description"
+    tools:visibility="visible" />
+
+  <androidx.constraintlayout.widget.Guideline
+    android:id="@+id/start_guideline"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:layout_constraintGuide_percent="0.10" />
+
+  <androidx.constraintlayout.widget.Barrier
+    android:id="@+id/barrier"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:barrierDirection="start"
+    app:constraint_referenced_ids="number" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

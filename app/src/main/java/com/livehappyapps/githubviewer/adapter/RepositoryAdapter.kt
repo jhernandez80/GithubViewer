@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.livehappyapps.githubviewer.databinding.ItemRepositoryBinding
 import com.livehappyapps.githubviewer.model.Repository
 import com.livehappyapps.githubviewer.utils.ColorMapper
+import com.livehappyapps.githubviewer.utils.setTextOrHide
 
 
-class RepositoryAdapter : RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder>() {
+class RepositoryAdapter(
+    private val onItemClickListener: ((owner: String?, repo: String?) -> Unit)? = null
+) : RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder>() {
 
     var repositories = emptyList<Repository>()
         set(value) {
@@ -21,8 +24,7 @@ class RepositoryAdapter : RecyclerView.Adapter<RepositoryAdapter.RepositoryViewH
     override fun getItemCount(): Int = repositories.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepositoryViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val view = ItemRepositoryBinding.inflate(inflater, parent, false)
+        val view = ItemRepositoryBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return RepositoryViewHolder(view)
     }
 
@@ -38,9 +40,11 @@ class RepositoryAdapter : RecyclerView.Adapter<RepositoryAdapter.RepositoryViewH
             val owner = repository.owner?.login
             val name = repository.name
             binding.fullName.text = Html.fromHtml("$owner/<b>$name</b>")
-
-            binding.description.text = repository.description
+            binding.description.setTextOrHide(repository.description)
             binding.stargazerCount.text = repository.stargazersCount.toString()
+            binding.root.setOnClickListener {
+                onItemClickListener?.invoke(repository.owner?.login, repository.name)
+            }
 
             if (repository.language != null) {
                 binding.languageIcon.visibility = View.VISIBLE

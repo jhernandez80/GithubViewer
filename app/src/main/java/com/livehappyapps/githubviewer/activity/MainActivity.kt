@@ -16,8 +16,6 @@ import com.livehappyapps.githubviewer.network.Resource
 import com.livehappyapps.githubviewer.viewmodel.MainViewModel
 
 /* TODO:
- * Incorporate Issue Activity (Fragment with ViewPager2)
- *
  * Implement Caching (Add a repository)
  * Handle Paging & load more
  */
@@ -36,7 +34,9 @@ class MainActivity : AppCompatActivity() {
             setOnRefreshListener { viewModel.fetchRepositories() }
         }
 
-        val repoAdapter = RepositoryAdapter()
+        val repoAdapter = RepositoryAdapter { owner, repo ->
+            startActivity(IssueActivity.newInstance(this, owner, repo))
+        }
         binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = repoAdapter

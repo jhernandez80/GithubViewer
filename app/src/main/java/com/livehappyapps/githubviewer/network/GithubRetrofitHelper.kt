@@ -1,5 +1,7 @@
 package com.livehappyapps.githubviewer.network
 
+import com.livehappyapps.githubviewer.IssueState
+import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.model.Repository
 import io.reactivex.Single
 import retrofit2.Retrofit
@@ -18,7 +20,11 @@ class GithubRetrofitHelper {
         .build()
     private val githubService = retrofit.create<GithubApi>()
 
-    fun getRepositories(organization: String): Single<List<Repository>> {
-        return githubService.getRepositories(organization)
+    fun getRepositories(owner: String): Single<List<Repository>> {
+        return githubService.getRepositories(owner)
+    }
+
+    fun getIssues(owner: String, repo: String, state: IssueState): Single<List<Issue>> {
+        return githubService.getIssues(owner, repo, state)
     }
 }
