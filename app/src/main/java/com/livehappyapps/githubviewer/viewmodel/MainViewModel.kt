@@ -8,6 +8,7 @@ import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
 import com.livehappyapps.githubviewer.network.Resource
 import com.livehappyapps.githubviewer.utils.async
 import io.reactivex.disposables.CompositeDisposable
+import java.util.concurrent.TimeUnit
 
 
 class MainViewModel(
@@ -25,7 +26,7 @@ class MainViewModel(
         fetchRepositories()
     }
 
-    private fun fetchRepositories() {
+    fun fetchRepositories() {
         // TODO: Calling the API should be handled by the Repository
         _repositories.value = Resource.Loading
         val repoSubscription = githubHelper.getRepositories("intuit")

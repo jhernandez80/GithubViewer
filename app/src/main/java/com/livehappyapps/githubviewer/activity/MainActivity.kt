@@ -2,12 +2,14 @@ package com.livehappyapps.githubviewer.activity
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.adapter.RepositoryAdapter
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
 import com.livehappyapps.githubviewer.network.Resource
@@ -29,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.swipeRefresh.apply {
+            setColorSchemeColors(ContextCompat.getColor(context, R.color.accent))
+            setOnRefreshListener { viewModel.fetchRepositories() }
+        }
+
         val repoAdapter = RepositoryAdapter()
         binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -39,14 +46,16 @@ class MainActivity : AppCompatActivity() {
         viewModel.repositories.observe(this, Observer { resource ->
             when (resource) {
                 is Resource.Success -> {
-                    binding.progress.visibility = View.GONE
+                    binding.progress.isVisible = false
+                    binding.swipeRefresh.isRefreshing = false
                     repoAdapter.repositories = resource.data
                 }
                 is Resource.Loading -> {
-                    binding.progress.visibility = View.VISIBLE
+                    binding.progress.isVisible = !binding.swipeRefresh.isRefreshing
                 }
                 is Resource.Error -> {
-                    binding.progress.visibility = View.GONE
+                    binding.progress.isVisible = false
+                    binding.swipeRefresh.isRefreshing = false
                     Log.d(TAG, resource.message)
                 }
             }
