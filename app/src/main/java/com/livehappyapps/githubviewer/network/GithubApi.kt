@@ -20,6 +20,6 @@ interface GithubApi {
     fun getIssues(
         @Path("owner") owner: String,
         @Path("repo") repo: String,
-        @Query("state") state: IssueState
+        @Query("state") state: String
     ): Single<List<Issue>>
 }

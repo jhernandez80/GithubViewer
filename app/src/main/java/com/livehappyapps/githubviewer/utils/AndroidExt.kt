@@ -1,8 +1,10 @@
 package com.livehappyapps.githubviewer.utils
 
+import android.content.Context
 import android.content.res.Resources
 import android.view.View
 import android.widget.TextView
+import android.widget.Toast
 
 
 val Int.toDp: Int
@@ -15,4 +17,8 @@ fun TextView.setTextOrHide(text: CharSequence?) {
         visibility = View.VISIBLE
         setText(text)
     }
+}
+
+fun Context.toastShort(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT ).show()
 }

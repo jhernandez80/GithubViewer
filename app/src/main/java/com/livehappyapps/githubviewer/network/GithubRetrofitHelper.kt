@@ -1,6 +1,5 @@
 package com.livehappyapps.githubviewer.network
 
-import com.livehappyapps.githubviewer.IssueState
 import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.model.Repository
 import io.reactivex.Single
@@ -24,7 +23,7 @@ class GithubRetrofitHelper {
         return githubService.getRepositories(owner)
     }
 
-    fun getIssues(owner: String, repo: String, state: IssueState): Single<List<Issue>> {
+    fun getIssues(owner: String, repo: String, state: String): Single<List<Issue>> {
         return githubService.getIssues(owner, repo, state)
     }
 }

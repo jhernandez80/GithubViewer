@@ -9,10 +9,6 @@ import com.livehappyapps.githubviewer.adapter.IssuePagerAdapter
 import com.livehappyapps.githubviewer.databinding.ActivityIssueBinding
 
 
-/* TODO:
- * Add empty text for repos with no issues
- * Add ViewModel for tabs
- */
 class IssueActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityIssueBinding

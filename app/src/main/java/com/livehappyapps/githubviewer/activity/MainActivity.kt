@@ -45,13 +45,13 @@ class MainActivity : AppCompatActivity() {
 
         viewModel.repositories.observe(this, Observer { resource ->
             when (resource) {
+                is Resource.Loading -> {
+                    binding.progress.isVisible = !binding.swipeRefresh.isRefreshing
+                }
                 is Resource.Success -> {
                     binding.progress.isVisible = false
                     binding.swipeRefresh.isRefreshing = false
                     repoAdapter.repositories = resource.data
-                }
-                is Resource.Loading -> {
-                    binding.progress.isVisible = !binding.swipeRefresh.isRefreshing
                 }
                 is Resource.Error -> {
                     binding.progress.isVisible = false
