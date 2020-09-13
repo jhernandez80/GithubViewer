@@ -8,5 +8,11 @@
   <color name="icons">#586069</color>
   <color name="divider">#BDBDBD</color>
   <color name="hyper_link">#0266D6</color>
+  <color name="red">#D73A49</color>
+  <color name="green">#28A745</color>
+  <color name="transparent">#00000000</color>
+  <color name="white">#FFFFFF</color>
+  <color name="off_white">#FAFAFA</color>
+  <color name="grey">#F5F5F5</color>
 </resources>
 
