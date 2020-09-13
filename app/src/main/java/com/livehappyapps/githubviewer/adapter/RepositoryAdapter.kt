@@ -1,6 +1,5 @@
 package com.livehappyapps.githubviewer.adapter
 
-import android.graphics.Color
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +7,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.livehappyapps.githubviewer.databinding.ItemRepositoryBinding
 import com.livehappyapps.githubviewer.model.Repository
-import kotlin.random.Random
+import com.livehappyapps.githubviewer.utils.ColorMapper
 
 
 class RepositoryAdapter : RecyclerView.Adapter<RepositoryAdapter.RepositoryViewHolder>() {
 
-    private val colors = mutableMapOf<String, Int>()
     var repositories = emptyList<Repository>()
         set(value) {
             field = value
@@ -48,10 +46,7 @@ class RepositoryAdapter : RecyclerView.Adapter<RepositoryAdapter.RepositoryViewH
                 binding.languageIcon.visibility = View.VISIBLE
                 binding.language.visibility = View.VISIBLE
                 binding.language.text = repository.language
-                val langColor = colors.getOrPut(repository.language) {
-                    Color.argb(255, Random.nextInt(256), Random.nextInt(256), Random.nextInt(256))
-                }
-                binding.languageIcon.setColorFilter(langColor)
+                binding.languageIcon.setColorFilter(ColorMapper.getColorFor(repository.language))
             } else {
                 binding.languageIcon.visibility = View.GONE
                 binding.language.visibility = View.GONE
