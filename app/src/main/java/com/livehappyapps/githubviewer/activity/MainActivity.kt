@@ -1,19 +1,26 @@
 package com.livehappyapps.githubviewer.activity
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.R
+import com.livehappyapps.githubviewer.SettingsKey
 import com.livehappyapps.githubviewer.adapter.RepositoryAdapter
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
 import com.livehappyapps.githubviewer.network.Resource
 import com.livehappyapps.githubviewer.viewmodel.MainViewModel
+import com.livehappyapps.githubviewer.viewmodel.MainViewModelFactory
 
 /* TODO:
  * Implement Caching (Add a repository)
@@ -22,16 +29,24 @@ import com.livehappyapps.githubviewer.viewmodel.MainViewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModels()
+    private lateinit var preferences: SharedPreferences
+    private val viewModel: MainViewModel by viewModels {
+        MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(this))
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
         binding.swipeRefresh.apply {
             setColorSchemeColors(ContextCompat.getColor(context, R.color.accent))
-            setOnRefreshListener { viewModel.fetchRepositories() }
+            setOnRefreshListener {
+                viewModel.fetchRepositories(
+                    preferences.getString(SettingsKey.ORGANIZATION, Config.DEFAULT_ORG)!!
+                )
+            }
         }
 
         val repoAdapter = RepositoryAdapter { owner, repo ->
@@ -60,6 +75,18 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.settings -> startActivity(SettingsActivity.newInstance(this))
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

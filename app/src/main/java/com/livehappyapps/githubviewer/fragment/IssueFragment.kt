@@ -50,7 +50,7 @@ class IssueFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentIssueBinding.inflate(layoutInflater, container, false)
+        binding = FragmentIssueBinding.inflate(inflater, container, false)
         return binding.root
     }
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <EditTextPreference
+    android:defaultValue="intuit"
+    android:key="organization"
+    android:title="Organization Name"
+    app:summary="@string/github_org_to_display" />
+
+</PreferenceScreen>

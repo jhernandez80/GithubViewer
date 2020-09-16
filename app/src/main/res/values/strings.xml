@@ -4,4 +4,7 @@
   <string name="closed">Closed</string>
   <string name="looks_like_there_are_no_issues">Looks like there are no issues.</string>
   <string name="issue_retrieving_repo_details">Looks like there was an issue retrieving this repository\'s details. Please try again</string>
+  <string name="github_org_to_display">The GitHub organization to display</string>
+  <string name="current_org_set_as_x">The current organization is set to %1s</string>
+  <string name="settings">Settings</string>
 </resources>
