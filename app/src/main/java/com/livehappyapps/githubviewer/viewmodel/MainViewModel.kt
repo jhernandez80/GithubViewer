@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.SettingsKey
+import com.livehappyapps.githubviewer.model.Organization
 import com.livehappyapps.githubviewer.model.Repository
 import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
 import com.livehappyapps.githubviewer.network.Resource
@@ -20,6 +21,11 @@ class MainViewModel(
 ) : ViewModel(), SharedPreferences.OnSharedPreferenceChangeListener {
 
     private val compositeDisposable = CompositeDisposable()
+    private val _organization: MutableLiveData<Resource<Organization>> by lazy {
+        MutableLiveData<Resource<Organization>>()
+    }
+    val organization: LiveData<Resource<Organization>>
+        get() = _organization
     private val _repositories: MutableLiveData<Resource<List<Repository>>> by lazy {
         MutableLiveData<Resource<List<Repository>>>()
     }
@@ -30,7 +36,20 @@ class MainViewModel(
         preferences.registerOnSharedPreferenceChangeListener(this)
 
         val organization = preferences.getString(SettingsKey.ORGANIZATION, Config.DEFAULT_ORG)!!
+        fetchOrganization(organization)
         fetchRepositories(organization)
+    }
+
+    fun fetchOrganization(organization: String) {
+        _organization.value = Resource.Loading
+        val orgSubscription = githubHelper.getOrganization(organization)
+            .async()
+            .subscribe({ org ->
+                _organization.value = Resource.Success(org)
+            }, { error ->
+                _organization.value = Resource.Error("Error: ${error.message}")
+            })
+        compositeDisposable.add(orgSubscription)
     }
 
     fun fetchRepositories(organization: String) {
@@ -50,6 +69,7 @@ class MainViewModel(
         when (key) {
             SettingsKey.ORGANIZATION -> {
                 val org = preferences.getString(SettingsKey.ORGANIZATION, Config.DEFAULT_ORG)!!
+                fetchOrganization(org)
                 fetchRepositories(org)
             }
         }
