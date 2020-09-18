@@ -41,6 +41,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
+
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
         binding.swipeRefresh.apply {
@@ -78,8 +80,6 @@ class MainActivity : AppCompatActivity() {
                 }
                 is Resource.Error -> {
                     Log.d(TAG, resource.message)
-                    binding.headerLayer.isVisible = false
-                    binding.horizontalBarrier.margin = 0
                 }
             }
         })
