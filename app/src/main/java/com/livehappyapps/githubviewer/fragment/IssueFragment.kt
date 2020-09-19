@@ -12,11 +12,9 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livehappyapps.githubviewer.IssueState
-import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.adapter.IssueAdapter
 import com.livehappyapps.githubviewer.databinding.FragmentIssueBinding
 import com.livehappyapps.githubviewer.network.Resource
-import com.livehappyapps.githubviewer.utils.toastShort
 import com.livehappyapps.githubviewer.viewmodel.IssueViewModel
 import com.livehappyapps.githubviewer.viewmodel.IssueViewModelFactory
 
@@ -38,11 +36,7 @@ class IssueFragment : Fragment() {
             val issueState = arguments?.getSerializable(ARG_ISSUE_STATE)
             val issueFactory = IssueViewModelFactory(owner, repo, issueState.toString())
             viewModel = ViewModelProvider(this, issueFactory).get(IssueViewModel::class.java)
-        } else {
-            context?.toastShort(getString(R.string.issue_retrieving_repo_details))
-            activity?.finish()
         }
-
     }
 
     override fun onCreateView(
