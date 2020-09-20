@@ -154,7 +154,7 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       tools:itemCount="10"
-      tools:listitem="@layout/item_repository" />
+      tools:listitem="@layout/item_repo" />
 
   </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

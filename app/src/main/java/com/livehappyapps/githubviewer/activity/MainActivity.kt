@@ -18,7 +18,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.SettingsKey
-import com.livehappyapps.githubviewer.adapter.RepositoryAdapter
+import com.livehappyapps.githubviewer.adapter.RepoAdapter
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
 import com.livehappyapps.githubviewer.network.Resource
 import com.livehappyapps.githubviewer.utils.setTextOrHide
@@ -50,11 +50,11 @@ class MainActivity : AppCompatActivity() {
             setOnRefreshListener {
                 val org = preferences.getString(SettingsKey.ORGANIZATION, Config.DEFAULT_ORG)!!
                 viewModel.fetchOrganization(org)
-                viewModel.fetchRepositories(org)
+                viewModel.fetchRepos(org)
             }
         }
 
-        val repoAdapter = RepositoryAdapter { owner, repo ->
+        val repoAdapter = RepoAdapter { owner, repo ->
             startActivity(IssueActivity.newInstance(this, owner, repo))
         }
         binding.recycler.apply {
@@ -83,7 +83,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-        viewModel.repositories.observe(this, Observer { resource ->
+        viewModel.repos.observe(this, Observer { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     binding.progress.isVisible = !binding.swipeRefresh.isRefreshing
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     binding.progress.isVisible = false
                     binding.swipeRefresh.isRefreshing = false
-                    repoAdapter.repositories = resource.data
+                    repoAdapter.repos = resource.data
                 }
                 is Resource.Error -> {
                     binding.progress.isVisible = false

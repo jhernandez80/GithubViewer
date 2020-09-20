@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.SettingsKey
 import com.livehappyapps.githubviewer.model.Organization
-import com.livehappyapps.githubviewer.model.Repository
+import com.livehappyapps.githubviewer.model.Repo
 import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
 import com.livehappyapps.githubviewer.network.Resource
 import com.livehappyapps.githubviewer.utils.async
@@ -26,18 +26,18 @@ class MainViewModel(
     }
     val organization: LiveData<Resource<Organization>>
         get() = _organization
-    private val _repositories: MutableLiveData<Resource<List<Repository>>> by lazy {
-        MutableLiveData<Resource<List<Repository>>>()
+    private val _repos: MutableLiveData<Resource<List<Repo>>> by lazy {
+        MutableLiveData<Resource<List<Repo>>>()
     }
-    val repositories: LiveData<Resource<List<Repository>>>
-        get() = _repositories
+    val repos: LiveData<Resource<List<Repo>>>
+        get() = _repos
 
     init {
         preferences.registerOnSharedPreferenceChangeListener(this)
 
         val organization = preferences.getString(SettingsKey.ORGANIZATION, Config.DEFAULT_ORG)!!
         fetchOrganization(organization)
-        fetchRepositories(organization)
+        fetchRepos(organization)
     }
 
     fun fetchOrganization(organization: String) {
@@ -52,15 +52,15 @@ class MainViewModel(
         compositeDisposable.add(orgSubscription)
     }
 
-    fun fetchRepositories(organization: String) {
+    fun fetchRepos(organization: String) {
         // TODO: Calling the API should be handled by the Repository
-        _repositories.value = Resource.Loading
-        val repoSubscription = githubHelper.getRepositories(organization)
+        _repos.value = Resource.Loading
+        val repoSubscription = githubHelper.getRepos(organization)
             .async()
             .subscribe({ repos ->
-                _repositories.value = Resource.Success(repos)
+                _repos.value = Resource.Success(repos)
             }, { error ->
-                _repositories.value = Resource.Error("Error: ${error.message}")
+                _repos.value = Resource.Error("Error: ${error.message}")
             })
         compositeDisposable.add(repoSubscription)
     }
@@ -70,7 +70,7 @@ class MainViewModel(
             SettingsKey.ORGANIZATION -> {
                 val org = preferences.getString(SettingsKey.ORGANIZATION, Config.DEFAULT_ORG)!!
                 fetchOrganization(org)
-                fetchRepositories(org)
+                fetchRepos(org)
             }
         }
     }

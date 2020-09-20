@@ -2,7 +2,7 @@ package com.livehappyapps.githubviewer.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Repository(
+data class Repo(
 
 	@field:SerializedName("stargazers_count")
 	val stargazersCount: Int? = null,

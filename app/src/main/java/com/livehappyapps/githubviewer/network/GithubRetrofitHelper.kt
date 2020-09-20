@@ -2,7 +2,7 @@ package com.livehappyapps.githubviewer.network
 
 import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.model.Organization
-import com.livehappyapps.githubviewer.model.Repository
+import com.livehappyapps.githubviewer.model.Repo
 import io.reactivex.Single
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -24,8 +24,8 @@ class GithubRetrofitHelper {
         return githubService.getOrganization(organization)
     }
 
-    fun getRepositories(owner: String): Single<List<Repository>> {
-        return githubService.getRepositories(owner)
+    fun getRepos(owner: String): Single<List<Repo>> {
+        return githubService.getRepos(owner)
     }
 
     fun getIssues(owner: String, repo: String, state: String): Single<List<Issue>> {

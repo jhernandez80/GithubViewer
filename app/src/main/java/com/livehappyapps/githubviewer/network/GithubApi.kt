@@ -2,7 +2,7 @@ package com.livehappyapps.githubviewer.network
 
 import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.model.Organization
-import com.livehappyapps.githubviewer.model.Repository
+import com.livehappyapps.githubviewer.model.Repo
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -17,9 +17,9 @@ interface GithubApi {
     ): Single<Organization>
 
     @GET("orgs/{owner}/repos")
-    fun getRepositories(
+    fun getRepos(
         @Path("owner") owner: String
-    ): Single<List<Repository>>
+    ): Single<List<Repo>>
 
     @GET("repos/{owner}/{repo}/issues")
     fun getIssues(
