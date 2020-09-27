@@ -48,7 +48,7 @@
           app:layout_constraintEnd_toEndOf="parent"
           app:layout_constraintStart_toEndOf="@id/avatar"
           app:layout_constraintTop_toTopOf="@id/avatar"
-          tools:text="Intuit" />
+          tools:text="Google" />
 
         <TextView
           android:id="@+id/description"
@@ -120,7 +120,7 @@
           app:layout_constraintStart_toEndOf="@id/link_icon"
           app:layout_constraintTop_toTopOf="@id/link_icon"
           app:layout_constraintVertical_bias="1"
-          tools:text="https://opensource.intuit.com/" />
+          tools:text="https://opensource.google/" />
       </androidx.constraintlayout.widget.ConstraintLayout>
 
       <androidx.appcompat.widget.Toolbar

@@ -4,7 +4,7 @@
   xmlns:app="http://schemas.android.com/apk/res-auto">
 
   <EditTextPreference
-    android:defaultValue="intuit"
+    android:defaultValue="google"
     android:key="organization"
     android:title="Organization Name"
     app:summary="@string/github_org_to_display" />

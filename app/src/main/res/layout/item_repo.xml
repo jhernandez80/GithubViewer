@@ -35,7 +35,7 @@
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toEndOf="@id/guideline"
     app:layout_constraintTop_toTopOf="parent"
-    tools:text="intuit/auto" />
+    tools:text="google/truth" />
 
   <TextView
     android:id="@+id/description"
