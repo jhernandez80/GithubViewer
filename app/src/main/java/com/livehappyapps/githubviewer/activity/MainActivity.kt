@@ -19,9 +19,12 @@ import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.SettingsKey
 import com.livehappyapps.githubviewer.adapter.RepoAdapter
+import com.livehappyapps.githubviewer.data.GithubDatabase
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
+import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
 import com.livehappyapps.githubviewer.network.Resource
 import com.livehappyapps.githubviewer.utils.setTextOrHide
+import com.livehappyapps.githubviewer.utils.toastShort
 import com.livehappyapps.githubviewer.viewmodel.MainViewModel
 import com.livehappyapps.githubviewer.viewmodel.MainViewModelFactory
 
@@ -34,7 +37,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var preferences: SharedPreferences
     private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(this))
+        MainViewModelFactory(
+            GithubRetrofitHelper(),
+            GithubDatabase.getDatabase(applicationContext),
+            PreferenceManager.getDefaultSharedPreferences(this)
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,8 +56,8 @@ class MainActivity : AppCompatActivity() {
             setColorSchemeColors(ContextCompat.getColor(context, R.color.accent))
             setOnRefreshListener {
                 val org = preferences.getString(SettingsKey.ORGANIZATION, Config.DEFAULT_ORG)!!
-                viewModel.fetchOrganization(org)
-                viewModel.fetchRepos(org)
+                viewModel.updateOrganization(org)
+                viewModel.updateRepos(org)
             }
         }
 
@@ -80,6 +87,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 is Resource.Error -> {
                     Log.d(TAG, resource.message)
+                    toastShort(getString(R.string.unfortunately_an_error_occurred))
                 }
             }
         })
@@ -97,6 +105,7 @@ class MainActivity : AppCompatActivity() {
                     binding.progress.isVisible = false
                     binding.swipeRefresh.isRefreshing = false
                     Log.d(TAG, resource.message)
+                    toastShort(getString(R.string.unfortunately_an_error_occurred))
                 }
             }
         })
