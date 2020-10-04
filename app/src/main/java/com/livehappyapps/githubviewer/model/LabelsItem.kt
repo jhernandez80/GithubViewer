@@ -9,7 +9,7 @@ data class LabelsItem(
     @PrimaryKey
     @ColumnInfo(name = "id")
     @field:SerializedName("id")
-    val id: Int,
+    val id: Long,
 
     @ColumnInfo(name = "color")
     @field:SerializedName("color")

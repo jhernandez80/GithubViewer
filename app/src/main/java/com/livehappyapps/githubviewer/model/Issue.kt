@@ -1,15 +1,24 @@
 package com.livehappyapps.githubviewer.model
 
+import androidx.annotation.InspectableProperty
 import androidx.room.ColumnInfo
+import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "issue")
 data class Issue(
 
     @PrimaryKey
     @ColumnInfo(name = "id")
     @field:SerializedName("id")
     val id: Int,
+
+    @ColumnInfo(name = "owner")
+    val owner: String,
+
+    @ColumnInfo(name = "repo")
+    val repoName: String,
 
     @ColumnInfo(name = "created_at")
     @field:SerializedName("created_at")
