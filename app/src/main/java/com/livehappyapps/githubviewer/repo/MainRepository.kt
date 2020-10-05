@@ -7,10 +7,6 @@ import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
 import io.reactivex.Completable
 import io.reactivex.Observable
 
-
-/* TODO:
- * Add an expiration to the cache
- */
 class MainRepository(
     private val database: GithubDatabase,
     private val retrofitHelper: GithubRetrofitHelper

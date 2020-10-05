@@ -28,10 +28,6 @@ import com.livehappyapps.githubviewer.utils.toastShort
 import com.livehappyapps.githubviewer.viewmodel.MainViewModel
 import com.livehappyapps.githubviewer.viewmodel.MainViewModelFactory
 
-/* TODO:
- * Implement Caching (Add a repository)
- * Handle Paging & load more
- */
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

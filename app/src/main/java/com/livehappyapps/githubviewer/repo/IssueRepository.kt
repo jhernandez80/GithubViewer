@@ -24,6 +24,7 @@ class IssueRepository(
     }
 
     fun updateIssues(owner: String, repo: String, state: String): Completable {
+        // FIXME: Loading state is never cleared if we get an empty response
         return retrofitHelper.getIssues(owner, repo, state)
             .doOnSuccess { issues ->
                 // FIXME: See if there's a more optimal way to do this
