@@ -10,6 +10,7 @@ import com.livehappyapps.githubviewer.network.Resource
 import com.livehappyapps.githubviewer.repo.IssueRepository
 import com.livehappyapps.githubviewer.utils.async
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.subscribeBy
 
 
 class IssueViewModel(
@@ -43,6 +44,17 @@ class IssueViewModel(
                 _issues.value = Resource.Error("Error: ${error.message}")
             })
         compositeDisposable.add(issueSubscription)
+    }
+
+    fun updateIssues(owner: String, repo: String, state: String) {
+        val subscription = repository.updateIssues(owner, repo, state)
+            .async()
+            .subscribeBy(
+                onError = { error ->
+                    _issues.value = Resource.Error("Error updating issues: ${error.message}")
+                }
+            )
+        compositeDisposable.add(subscription)
     }
 
     override fun onCleared() {
