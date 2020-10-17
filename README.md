@@ -40,6 +40,8 @@ This area is a work a progress, but the goal is to use Room for persistence and 
 
 ## TODO
  - [ ] Add API authentication to prevent rate limiting
+ - [ ] Define models separately as DTOs and Domain Models
+ - [ ] Establish clearer relations in Domain Models
  - [ ] Add an expiration to the cache
  - [ ] Add paging to home and issue pages
  - [ ] Add both unit and integration tests

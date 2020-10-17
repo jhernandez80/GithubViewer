@@ -7,5 +7,5 @@
   <string name="github_org_to_display">The GitHub organization to display</string>
   <string name="current_org_set_as_x">The current organization is set to %1s</string>
   <string name="settings">Settings</string>
-  <string name="unfortunately_an_error_occurred">Unfortunately and error occurred, please try again later.</string>
+  <string name="unfortunately_an_error_occurred">Unfortunately an error occurred, please try again later.</string>
 </resources>
