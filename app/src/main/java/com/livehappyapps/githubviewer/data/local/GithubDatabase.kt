@@ -1,10 +1,14 @@
-package com.livehappyapps.githubviewer.data
+package com.livehappyapps.githubviewer.data.local
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.livehappyapps.githubviewer.data.local.dao.IssueDao
+import com.livehappyapps.githubviewer.data.local.dao.OrganizationDao
+import com.livehappyapps.githubviewer.data.local.dao.RepoDao
+import com.livehappyapps.githubviewer.data.local.util.Converters
 import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.model.Organization
 import com.livehappyapps.githubviewer.model.Repo
@@ -28,7 +32,7 @@ abstract class GithubDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): GithubDatabase {
             synchronized(GithubDatabase::class.java) {
-                if (!::INSTANCE.isInitialized) {
+                if (!Companion::INSTANCE.isInitialized) {
                     INSTANCE = Room.databaseBuilder(
                         context.applicationContext,
                         GithubDatabase::class.java,

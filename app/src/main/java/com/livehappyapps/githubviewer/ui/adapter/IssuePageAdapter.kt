@@ -1,10 +1,10 @@
-package com.livehappyapps.githubviewer.adapter
+package com.livehappyapps.githubviewer.ui.adapter
 
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.livehappyapps.githubviewer.IssueState
 import com.livehappyapps.githubviewer.R
-import com.livehappyapps.githubviewer.fragment.IssueFragment
+import com.livehappyapps.githubviewer.ui.fragment.IssueFragment
 
 
 class IssuePagerAdapter(

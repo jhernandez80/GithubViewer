@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.data
+package com.livehappyapps.githubviewer.data.local.dao
 
 import androidx.room.Dao
 import androidx.room.Insert

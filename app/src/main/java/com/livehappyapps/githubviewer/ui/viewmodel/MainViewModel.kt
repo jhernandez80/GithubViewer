@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.viewmodel
+package com.livehappyapps.githubviewer.ui.viewmodel
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
@@ -7,12 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.SettingsKey
-import com.livehappyapps.githubviewer.data.GithubDatabase
 import com.livehappyapps.githubviewer.model.Organization
 import com.livehappyapps.githubviewer.model.Repo
-import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
-import com.livehappyapps.githubviewer.network.Resource
-import com.livehappyapps.githubviewer.repo.MainRepository
+import com.livehappyapps.githubviewer.data.Resource
+import com.livehappyapps.githubviewer.data.MainRepository
 import com.livehappyapps.githubviewer.utils.async
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

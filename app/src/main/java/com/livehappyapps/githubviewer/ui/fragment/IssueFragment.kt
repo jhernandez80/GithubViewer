@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.fragment
+package com.livehappyapps.githubviewer.ui.fragment
 
 import android.os.Bundle
 import android.util.Log
@@ -14,14 +14,14 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livehappyapps.githubviewer.IssueState
 import com.livehappyapps.githubviewer.R
-import com.livehappyapps.githubviewer.adapter.IssueAdapter
-import com.livehappyapps.githubviewer.data.GithubDatabase
+import com.livehappyapps.githubviewer.ui.adapter.IssueAdapter
+import com.livehappyapps.githubviewer.data.local.GithubDatabase
 import com.livehappyapps.githubviewer.databinding.FragmentIssueBinding
-import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
-import com.livehappyapps.githubviewer.network.Resource
-import com.livehappyapps.githubviewer.repo.IssueRepository
-import com.livehappyapps.githubviewer.viewmodel.IssueViewModel
-import com.livehappyapps.githubviewer.viewmodel.IssueViewModelFactory
+import com.livehappyapps.githubviewer.data.remote.api.GithubApi
+import com.livehappyapps.githubviewer.data.Resource
+import com.livehappyapps.githubviewer.data.IssueRepository
+import com.livehappyapps.githubviewer.ui.viewmodel.IssueViewModel
+import com.livehappyapps.githubviewer.ui.viewmodel.IssueViewModelFactory
 
 
 class IssueFragment : Fragment() {
@@ -49,7 +49,7 @@ class IssueFragment : Fragment() {
             issueState.toString(),
             IssueRepository(
                 GithubDatabase.getDatabase(requireContext().applicationContext),
-                GithubRetrofitHelper()
+                GithubApi()
             )
         )
         viewModel = ViewModelProvider(this, issueFactory).get(IssueViewModel::class.java)

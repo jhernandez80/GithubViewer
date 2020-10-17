@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.data
+package com.livehappyapps.githubviewer.data.local.util
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

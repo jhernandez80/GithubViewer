@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.network
+package com.livehappyapps.githubviewer.data
 
 
 sealed class Resource<out T> {

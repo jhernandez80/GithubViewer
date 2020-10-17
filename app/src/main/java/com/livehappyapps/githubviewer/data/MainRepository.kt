@@ -1,15 +1,15 @@
-package com.livehappyapps.githubviewer.repo
+package com.livehappyapps.githubviewer.data
 
-import com.livehappyapps.githubviewer.data.GithubDatabase
+import com.livehappyapps.githubviewer.data.local.GithubDatabase
 import com.livehappyapps.githubviewer.model.Organization
 import com.livehappyapps.githubviewer.model.Repo
-import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
+import com.livehappyapps.githubviewer.data.remote.api.GithubApi
 import io.reactivex.Completable
 import io.reactivex.Observable
 
 class MainRepository(
     private val database: GithubDatabase,
-    private val retrofitHelper: GithubRetrofitHelper
+    private val api: GithubApi
 ) {
 
     fun getOrganization(organization: String): Observable<Organization> {
@@ -23,7 +23,7 @@ class MainRepository(
     }
 
     fun updateOrganization(organization: String): Completable {
-        return retrofitHelper.getOrganization(organization)
+        return api.getOrganization(organization)
             .doOnSuccess { database.organizationDao.insertOrganization(it) }
             .ignoreElement()
     }
@@ -39,7 +39,7 @@ class MainRepository(
     }
 
     fun updateRepos(organization: String): Completable {
-        return retrofitHelper.getRepos(organization)
+        return api.getRepos(organization)
             .doOnSuccess { database.repoDao.insertAllRepos(it) }
             .ignoreElement()
     }

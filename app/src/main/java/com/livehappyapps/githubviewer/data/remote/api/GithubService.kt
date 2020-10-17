@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.network
+package com.livehappyapps.githubviewer.data.remote.api
 
 import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.model.Organization
@@ -9,7 +9,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 
-interface GithubApi {
+interface GithubService {
 
     @GET("orgs/{organization}")
     fun getOrganization(

@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.network
+package com.livehappyapps.githubviewer.data.remote.api
 
 import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.model.Organization
@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.create
 
 
-class GithubRetrofitHelper {
+class GithubApi {
     private val BASE_URL = "https://api.github.com/"
 
     private val retrofit = Retrofit.Builder()
@@ -18,7 +18,7 @@ class GithubRetrofitHelper {
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build()
-    private val githubService = retrofit.create<GithubApi>()
+    private val githubService = retrofit.create<GithubService>()
 
     fun getOrganization(organization: String): Single<Organization> {
         return githubService.getOrganization(organization)

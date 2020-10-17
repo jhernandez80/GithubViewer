@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.activity
+package com.livehappyapps.githubviewer.ui.activity
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -18,16 +18,16 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.SettingsKey
-import com.livehappyapps.githubviewer.adapter.RepoAdapter
-import com.livehappyapps.githubviewer.data.GithubDatabase
+import com.livehappyapps.githubviewer.ui.adapter.RepoAdapter
+import com.livehappyapps.githubviewer.data.local.GithubDatabase
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
-import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
-import com.livehappyapps.githubviewer.network.Resource
-import com.livehappyapps.githubviewer.repo.MainRepository
+import com.livehappyapps.githubviewer.data.remote.api.GithubApi
+import com.livehappyapps.githubviewer.data.Resource
+import com.livehappyapps.githubviewer.data.MainRepository
 import com.livehappyapps.githubviewer.utils.setTextOrHide
 import com.livehappyapps.githubviewer.utils.toastShort
-import com.livehappyapps.githubviewer.viewmodel.MainViewModel
-import com.livehappyapps.githubviewer.viewmodel.MainViewModelFactory
+import com.livehappyapps.githubviewer.ui.viewmodel.MainViewModel
+import com.livehappyapps.githubviewer.ui.viewmodel.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         MainViewModelFactory(
             MainRepository(
                 GithubDatabase.getDatabase(applicationContext),
-                GithubRetrofitHelper()
+                GithubApi()
             ),
             PreferenceManager.getDefaultSharedPreferences(this)
         )

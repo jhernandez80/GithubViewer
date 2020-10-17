@@ -12,10 +12,10 @@
     android:roundIcon="@mipmap/ic_launcher_round"
     android:supportsRtl="true"
     android:theme="@style/AppTheme">
-    <activity android:name=".activity.SettingsActivity" />
-    <activity android:name=".activity.IssueActivity" />
+    <activity android:name="com.livehappyapps.githubviewer.ui.activity.SettingsActivity" />
+    <activity android:name="com.livehappyapps.githubviewer.ui.activity.IssueActivity" />
     <activity
-      android:name=".activity.MainActivity"
+      android:name="com.livehappyapps.githubviewer.ui.activity.MainActivity"
       android:theme="@style/AppTheme.NoActionBar">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

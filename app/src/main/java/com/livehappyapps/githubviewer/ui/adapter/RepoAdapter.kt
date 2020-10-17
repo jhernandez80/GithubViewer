@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.adapter
+package com.livehappyapps.githubviewer.ui.adapter
 
 import android.text.Html
 import android.view.LayoutInflater

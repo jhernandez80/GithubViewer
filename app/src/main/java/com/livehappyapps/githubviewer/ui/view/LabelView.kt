@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.view
+package com.livehappyapps.githubviewer.ui.view
 
 import android.content.Context
 import android.util.AttributeSet

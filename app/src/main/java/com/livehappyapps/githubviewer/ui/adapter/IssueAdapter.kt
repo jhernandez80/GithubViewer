@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.adapter
+package com.livehappyapps.githubviewer.ui.adapter
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import com.livehappyapps.githubviewer.databinding.ItemIssueBinding
 import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.utils.setTextOrHide
 import com.livehappyapps.githubviewer.utils.toDp
-import com.livehappyapps.githubviewer.view.LabelView
+import com.livehappyapps.githubviewer.ui.view.LabelView
 
 class IssueAdapter(
     private val issueState: IssueState
