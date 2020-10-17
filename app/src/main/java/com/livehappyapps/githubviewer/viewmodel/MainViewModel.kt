@@ -20,12 +20,10 @@ import io.reactivex.rxkotlin.subscribeBy
 
 
 class MainViewModel(
-    private val retrofitHelper: GithubRetrofitHelper,
-    private val database: GithubDatabase,
+    private val repository: MainRepository,
     private val preferences: SharedPreferences
 ) : ViewModel(), SharedPreferences.OnSharedPreferenceChangeListener {
 
-    private val repository: MainRepository = MainRepository(database, retrofitHelper)
     private val compositeDisposable = CompositeDisposable()
     private var orgSubscription: Disposable? = null
     private var repoSubscription: Disposable? = null
@@ -124,13 +122,12 @@ class MainViewModel(
 }
 
 class MainViewModelFactory(
-    private val retrofitHelper: GithubRetrofitHelper,
-    private val database: GithubDatabase,
+    private val repository: MainRepository,
     private val preferences: SharedPreferences
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(retrofitHelper, database, preferences) as T
+        return MainViewModel(repository, preferences) as T
     }
 
 }

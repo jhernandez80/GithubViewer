@@ -19,6 +19,7 @@ import com.livehappyapps.githubviewer.data.GithubDatabase
 import com.livehappyapps.githubviewer.databinding.FragmentIssueBinding
 import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
 import com.livehappyapps.githubviewer.network.Resource
+import com.livehappyapps.githubviewer.repo.IssueRepository
 import com.livehappyapps.githubviewer.viewmodel.IssueViewModel
 import com.livehappyapps.githubviewer.viewmodel.IssueViewModelFactory
 
@@ -46,8 +47,10 @@ class IssueFragment : Fragment() {
             owner,
             repo,
             issueState.toString(),
-            GithubRetrofitHelper(),
-            GithubDatabase.getDatabase(requireContext().applicationContext)
+            IssueRepository(
+                GithubDatabase.getDatabase(requireContext().applicationContext),
+                GithubRetrofitHelper()
+            )
         )
         viewModel = ViewModelProvider(this, issueFactory).get(IssueViewModel::class.java)
     }

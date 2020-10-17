@@ -23,6 +23,7 @@ import com.livehappyapps.githubviewer.data.GithubDatabase
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
 import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
 import com.livehappyapps.githubviewer.network.Resource
+import com.livehappyapps.githubviewer.repo.MainRepository
 import com.livehappyapps.githubviewer.utils.setTextOrHide
 import com.livehappyapps.githubviewer.utils.toastShort
 import com.livehappyapps.githubviewer.viewmodel.MainViewModel
@@ -34,8 +35,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var preferences: SharedPreferences
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(
-            GithubRetrofitHelper(),
-            GithubDatabase.getDatabase(applicationContext),
+            MainRepository(
+                GithubDatabase.getDatabase(applicationContext),
+                GithubRetrofitHelper()
+            ),
             PreferenceManager.getDefaultSharedPreferences(this)
         )
     }

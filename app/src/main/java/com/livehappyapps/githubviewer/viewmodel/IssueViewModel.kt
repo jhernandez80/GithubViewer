@@ -17,11 +17,9 @@ class IssueViewModel(
     owner: String,
     repo: String,
     state: String,
-    retrofitHelper: GithubRetrofitHelper,
-    database: GithubDatabase
+    private val repository: IssueRepository
 ) : ViewModel() {
 
-    private val repository: IssueRepository = IssueRepository(database, retrofitHelper)
     private val compositeDisposable = CompositeDisposable()
 
     private val _issues: MutableLiveData<Resource<List<Issue>>> by lazy {
@@ -67,12 +65,11 @@ class IssueViewModelFactory(
     private val owner: String,
     private val repo: String,
     private val state: String,
-    private val retrofitHelper: GithubRetrofitHelper,
-    private val database: GithubDatabase
+    private val repository: IssueRepository
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return IssueViewModel(owner, repo, state, retrofitHelper, database) as T
+        return IssueViewModel(owner, repo, state, repository) as T
     }
 
 }
