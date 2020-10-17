@@ -40,8 +40,10 @@ This area is a work a progress, but the goal is to use Room for persistence and 
 
 ## TODO
  - [ ] Add API authentication to prevent rate limiting
+ - [ ] Define models separately as DTOs and Domain Models
+ - [ ] Establish clearer relations in Domain Models
+ - [ ] Add an expiration to the cache
  - [ ] Add paging to home and issue pages
- - [ ] Add [Room](https://developer.android.com/topic/libraries/architecture/room) local storage utilizing the repository pattern
  - [ ] Add both unit and integration tests
  - [ ] Add dependency injection via [Dagger](https://dagger.dev/) or [Koin](https://insert-koin.io/)
  - [ ] Add more animations with [MotionLayout](https://developer.android.com/training/constraint-layout/motionlayout)

@@ -3,20 +3,25 @@ package com.livehappyapps.githubviewer.viewmodel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.livehappyapps.githubviewer.data.GithubDatabase
 import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.network.GithubRetrofitHelper
 import com.livehappyapps.githubviewer.network.Resource
+import com.livehappyapps.githubviewer.repo.IssueRepository
 import com.livehappyapps.githubviewer.utils.async
 import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.subscribeBy
 
 
 class IssueViewModel(
     owner: String,
     repo: String,
     state: String,
-    private val githubHelper: GithubRetrofitHelper = GithubRetrofitHelper()
+    retrofitHelper: GithubRetrofitHelper,
+    database: GithubDatabase
 ) : ViewModel() {
 
+    private val repository: IssueRepository = IssueRepository(database, retrofitHelper)
     private val compositeDisposable = CompositeDisposable()
 
     private val _issues: MutableLiveData<Resource<List<Issue>>> by lazy {
@@ -31,7 +36,7 @@ class IssueViewModel(
 
     private fun getIssues(owner: String, repo: String, state: String) {
         _issues.value = Resource.Loading
-        val issueSubscription = githubHelper.getIssues(owner, repo, state)
+        val issueSubscription = repository.getIssues(owner, repo, state)
             .async()
             .subscribe({ issues ->
                 _issues.value = Resource.Success(issues)
@@ -39,6 +44,17 @@ class IssueViewModel(
                 _issues.value = Resource.Error("Error: ${error.message}")
             })
         compositeDisposable.add(issueSubscription)
+    }
+
+    fun updateIssues(owner: String, repo: String, state: String) {
+        val subscription = repository.updateIssues(owner, repo, state)
+            .async()
+            .subscribeBy(
+                onError = { error ->
+                    _issues.value = Resource.Error("Error updating issues: ${error.message}")
+                }
+            )
+        compositeDisposable.add(subscription)
     }
 
     override fun onCleared() {
@@ -50,11 +66,13 @@ class IssueViewModel(
 class IssueViewModelFactory(
     private val owner: String,
     private val repo: String,
-    private val state: String
+    private val state: String,
+    private val retrofitHelper: GithubRetrofitHelper,
+    private val database: GithubDatabase
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return IssueViewModel(owner, repo, state) as T
+        return IssueViewModel(owner, repo, state, retrofitHelper, database) as T
     }
 
 }
