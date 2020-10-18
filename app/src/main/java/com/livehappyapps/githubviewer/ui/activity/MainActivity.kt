@@ -5,12 +5,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -18,30 +16,20 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.SettingsKey
-import com.livehappyapps.githubviewer.ui.adapter.RepoAdapter
-import com.livehappyapps.githubviewer.data.local.GithubDatabase
-import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
-import com.livehappyapps.githubviewer.data.remote.api.GithubApi
 import com.livehappyapps.githubviewer.data.Resource
-import com.livehappyapps.githubviewer.data.MainRepository
+import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
+import com.livehappyapps.githubviewer.ui.adapter.RepoAdapter
+import com.livehappyapps.githubviewer.ui.viewmodel.MainViewModel
 import com.livehappyapps.githubviewer.utils.setTextOrHide
 import com.livehappyapps.githubviewer.utils.toastShort
-import com.livehappyapps.githubviewer.ui.viewmodel.MainViewModel
-import com.livehappyapps.githubviewer.ui.viewmodel.MainViewModelFactory
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var preferences: SharedPreferences
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(
-            MainRepository(
-                GithubDatabase.getDatabase(applicationContext),
-                GithubApi()
-            ),
-            PreferenceManager.getDefaultSharedPreferences(this)
-        )
-    }
+    private val preferences: SharedPreferences by inject()
+    private val viewModel: MainViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,8 +37,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
-
-        preferences = PreferenceManager.getDefaultSharedPreferences(this)
         binding.swipeRefresh.apply {
             setColorSchemeColors(ContextCompat.getColor(context, R.color.accent))
             setOnRefreshListener {
@@ -123,6 +109,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+
         private val TAG = MainActivity::class.java.simpleName
     }
 }

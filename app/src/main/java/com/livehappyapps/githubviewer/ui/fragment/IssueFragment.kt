@@ -9,25 +9,25 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livehappyapps.githubviewer.IssueState
 import com.livehappyapps.githubviewer.R
-import com.livehappyapps.githubviewer.ui.adapter.IssueAdapter
-import com.livehappyapps.githubviewer.data.local.GithubDatabase
-import com.livehappyapps.githubviewer.databinding.FragmentIssueBinding
-import com.livehappyapps.githubviewer.data.remote.api.GithubApi
 import com.livehappyapps.githubviewer.data.Resource
-import com.livehappyapps.githubviewer.data.IssueRepository
+import com.livehappyapps.githubviewer.databinding.FragmentIssueBinding
+import com.livehappyapps.githubviewer.ui.adapter.IssueAdapter
 import com.livehappyapps.githubviewer.ui.viewmodel.IssueViewModel
-import com.livehappyapps.githubviewer.ui.viewmodel.IssueViewModelFactory
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 
 class IssueFragment : Fragment() {
 
     private lateinit var binding: FragmentIssueBinding
-    private var viewModel: IssueViewModel? = null
+
+    private val viewModel: IssueViewModel by viewModel {
+        parametersOf(owner, repo, issueState.toString())
+    }
 
     private val repo: String by lazy {
         arguments?.getString(ARG_REPO) ?: ""
@@ -37,22 +37,6 @@ class IssueFragment : Fragment() {
     }
     private val issueState: IssueState by lazy {
         arguments?.getSerializable(ARG_ISSUE_STATE) as? IssueState ?: IssueState.OPEN
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        // FIXME: Mixing IssueState and string is a bad idea
-        val issueFactory = IssueViewModelFactory(
-            owner,
-            repo,
-            issueState.toString(),
-            IssueRepository(
-                GithubDatabase.getDatabase(requireContext().applicationContext),
-                GithubApi()
-            )
-        )
-        viewModel = ViewModelProvider(this, issueFactory).get(IssueViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -75,11 +59,11 @@ class IssueFragment : Fragment() {
         binding.swipeRefresh.apply {
             setColorSchemeColors(ContextCompat.getColor(context, R.color.accent))
             setOnRefreshListener {
-                viewModel?.updateIssues(owner, repo, issueState.toString())
+                viewModel.updateIssues(owner, repo, issueState.toString())
             }
         }
 
-        viewModel?.issues?.observe(viewLifecycleOwner, Observer { resource ->
+        viewModel.issues.observe(viewLifecycleOwner, Observer { resource ->
             when (resource) {
                 Resource.Loading -> {
                     binding.progress.isVisible = !binding.swipeRefresh.isRefreshing
