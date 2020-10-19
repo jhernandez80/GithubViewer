@@ -8,7 +8,6 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        viewModel.organization.observe(this, Observer { resource ->
+        viewModel.organization.observe(this) { resource ->
             when (resource) {
                 is Resource.Success -> {
                     val org = resource.data
@@ -75,8 +74,8 @@ class MainActivity : AppCompatActivity() {
                     toastShort(getString(R.string.unfortunately_an_error_occurred))
                 }
             }
-        })
-        viewModel.repos.observe(this, Observer { resource ->
+        }
+        viewModel.repos.observe(this) { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     binding.progress.isVisible = !binding.swipeRefresh.isRefreshing
@@ -93,7 +92,7 @@ class MainActivity : AppCompatActivity() {
                     toastShort(getString(R.string.unfortunately_an_error_occurred))
                 }
             }
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

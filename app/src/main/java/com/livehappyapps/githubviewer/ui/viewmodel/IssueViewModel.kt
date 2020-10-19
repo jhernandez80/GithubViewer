@@ -2,10 +2,9 @@ package com.livehappyapps.githubviewer.ui.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.livehappyapps.githubviewer.model.Issue
-import com.livehappyapps.githubviewer.data.Resource
 import com.livehappyapps.githubviewer.data.IssueRepository
+import com.livehappyapps.githubviewer.data.Resource
+import com.livehappyapps.githubviewer.model.Issue
 import com.livehappyapps.githubviewer.utils.async
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.subscribeBy
@@ -59,15 +58,3 @@ class IssueViewModel(
     }
 }
 
-class IssueViewModelFactory(
-    private val owner: String,
-    private val repo: String,
-    private val state: String,
-    private val repository: IssueRepository
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return IssueViewModel(owner, repo, state, repository) as T
-    }
-
-}

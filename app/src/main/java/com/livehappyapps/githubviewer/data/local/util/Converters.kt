@@ -4,7 +4,6 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.livehappyapps.githubviewer.model.LabelsItem
-import com.livehappyapps.githubviewer.model.Owner
 import java.lang.reflect.Type
 
 

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.livehappyapps.githubviewer.IssueState
@@ -63,7 +62,7 @@ class IssueFragment : Fragment() {
             }
         }
 
-        viewModel.issues.observe(viewLifecycleOwner, Observer { resource ->
+        viewModel.issues.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 Resource.Loading -> {
                     binding.progress.isVisible = !binding.swipeRefresh.isRefreshing
@@ -80,7 +79,7 @@ class IssueFragment : Fragment() {
                     Log.d(TAG, resource.message)
                 }
             }
-        })
+        }
     }
 
     companion object {

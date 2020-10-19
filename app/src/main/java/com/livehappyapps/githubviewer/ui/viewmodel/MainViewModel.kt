@@ -4,13 +4,12 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.SettingsKey
+import com.livehappyapps.githubviewer.data.MainRepository
+import com.livehappyapps.githubviewer.data.Resource
 import com.livehappyapps.githubviewer.model.Organization
 import com.livehappyapps.githubviewer.model.Repo
-import com.livehappyapps.githubviewer.data.Resource
-import com.livehappyapps.githubviewer.data.MainRepository
 import com.livehappyapps.githubviewer.utils.async
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
@@ -115,17 +114,8 @@ class MainViewModel(
     }
 
     companion object {
+
         private val TAG = MainViewModel::class.java.simpleName
     }
 }
 
-class MainViewModelFactory(
-    private val repository: MainRepository,
-    private val preferences: SharedPreferences
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(repository, preferences) as T
-    }
-
-}
