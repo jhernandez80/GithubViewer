@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.ui.activity
+package com.livehappyapps.githubviewer.ui.main
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -17,8 +17,8 @@ import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.SettingsKey
 import com.livehappyapps.githubviewer.data.Resource
 import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
-import com.livehappyapps.githubviewer.ui.adapter.RepoAdapter
-import com.livehappyapps.githubviewer.ui.viewmodel.MainViewModel
+import com.livehappyapps.githubviewer.ui.settings.SettingsActivity
+import com.livehappyapps.githubviewer.ui.issues.IssueActivity
 import com.livehappyapps.githubviewer.utils.setTextOrHide
 import com.livehappyapps.githubviewer.utils.toastShort
 import org.koin.android.ext.android.inject

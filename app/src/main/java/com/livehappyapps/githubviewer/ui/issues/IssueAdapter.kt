@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.ui.adapter
+package com.livehappyapps.githubviewer.ui.issues
 
 import android.graphics.Color
 import android.view.LayoutInflater

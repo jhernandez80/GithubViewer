@@ -1,11 +1,10 @@
-package com.livehappyapps.githubviewer.ui.activity
+package com.livehappyapps.githubviewer.ui.settings
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.livehappyapps.githubviewer.databinding.ActivitySettingsBinding
-import com.livehappyapps.githubviewer.ui.fragment.SettingsFragment
 
 class SettingsActivity : AppCompatActivity() {
 

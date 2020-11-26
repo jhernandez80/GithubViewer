@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.ui.activity
+package com.livehappyapps.githubviewer.ui.issues
 
 import android.content.Context
 import android.content.Intent
@@ -6,7 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.tabs.TabLayoutMediator
 import com.livehappyapps.githubviewer.R
-import com.livehappyapps.githubviewer.ui.adapter.IssuePagerAdapter
 import com.livehappyapps.githubviewer.databinding.ActivityIssueBinding
 import com.livehappyapps.githubviewer.utils.toastShort
 

@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.ui.fragment
+package com.livehappyapps.githubviewer.ui.issues
 
 import android.os.Bundle
 import android.util.Log
@@ -14,8 +14,6 @@ import com.livehappyapps.githubviewer.IssueState
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.data.Resource
 import com.livehappyapps.githubviewer.databinding.FragmentIssueBinding
-import com.livehappyapps.githubviewer.ui.adapter.IssueAdapter
-import com.livehappyapps.githubviewer.ui.viewmodel.IssueViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 

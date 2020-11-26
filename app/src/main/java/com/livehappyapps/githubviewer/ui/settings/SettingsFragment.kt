@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.ui.fragment
+package com.livehappyapps.githubviewer.ui.settings
 
 import android.os.Bundle
 import android.text.TextUtils

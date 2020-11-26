@@ -46,4 +46,3 @@ This area is a work a progress, but the goal is to use Room for persistence and 
  - [ ] Add paging to home and issue pages
  - [ ] Add both unit and integration tests
  - [ ] Add more animations with [MotionLayout](https://developer.android.com/training/constraint-layout/motionlayout)
- - [ ] Try to group ui package by feature instead of types
