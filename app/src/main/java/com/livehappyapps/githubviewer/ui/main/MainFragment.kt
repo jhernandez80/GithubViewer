@@ -11,6 +11,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -21,7 +22,6 @@ import com.livehappyapps.githubviewer.SettingsKey
 import com.livehappyapps.githubviewer.data.Resource
 import com.livehappyapps.githubviewer.databinding.FragmentMainBinding
 import com.livehappyapps.githubviewer.ui.issues.IssueContainerFragment
-import com.livehappyapps.githubviewer.ui.settings.SettingsActivity
 import com.livehappyapps.githubviewer.utils.setTextOrHide
 import com.livehappyapps.githubviewer.utils.toastShort
 import org.koin.android.ext.android.inject
@@ -30,6 +30,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainFragment : Fragment() {
 
     private lateinit var binding: FragmentMainBinding
+
+    private val navController by lazy { findNavController() }
     private val preferences: SharedPreferences by inject()
     private val viewModel: MainViewModel by viewModel()
 
@@ -56,12 +58,7 @@ class MainFragment : Fragment() {
         }
 
         val repoAdapter = RepoAdapter { owner, repo ->
-            parentFragmentManager.commit {
-                val fragment = IssueContainerFragment.newInstance(owner, repo)
-                replace(R.id.fragment_container, fragment)
-                setReorderingAllowed(true)
-                addToBackStack(null)
-            }
+            navController.navigate(MainFragmentDirections.toIssueContainer(owner, repo))
         }
         binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -116,7 +113,7 @@ class MainFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.settings -> {
-                    startActivity(SettingsActivity.newInstance(requireContext()))
+                    navController.navigate(MainFragmentDirections.toSettings())
                     true
                 }
                 else -> false

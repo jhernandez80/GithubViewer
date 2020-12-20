@@ -9,15 +9,4 @@ import com.livehappyapps.githubviewer.databinding.ActivityGithubViewerBinding
 import com.livehappyapps.githubviewer.ui.main.MainFragment
 
 class GithubViewerActivity : AppCompatActivity(R.layout.activity_github_viewer) {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        if(savedInstanceState == null) {
-            supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                add<MainFragment>(R.id.fragment_container)
-            }
-        }
-    }
 }
