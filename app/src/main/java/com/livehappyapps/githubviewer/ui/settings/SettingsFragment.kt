@@ -3,15 +3,13 @@ package com.livehappyapps.githubviewer.ui.settings
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupWithNavController
 import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.SettingsKey
 import com.livehappyapps.githubviewer.databinding.FragmentPreferencesBinding
+import com.livehappyapps.githubviewer.utils.setupNavControllerWithTitle
 
 
 class SettingsFragment : PreferenceFragmentCompat() {
@@ -22,9 +20,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentPreferencesBinding.bind(view)
 
-        val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
-        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setupNavControllerWithTitle(getString(R.string.settings))
     }
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {

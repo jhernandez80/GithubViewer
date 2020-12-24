@@ -10,7 +10,9 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.databinding.FragmentIssueContainerBinding
+import com.livehappyapps.githubviewer.utils.setupNavControllerWithTitle
 import com.livehappyapps.githubviewer.utils.toastShort
+import java.util.*
 
 
 class IssueContainerFragment : Fragment() {
@@ -43,7 +45,9 @@ class IssueContainerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.toolbar.title = "${owner?.capitalize()} Issues"
+        binding.toolbar.setupNavControllerWithTitle(
+            getString(R.string.x_issues, owner?.capitalize(Locale.US))
+        )
 
         val pagerAdapter = IssuePagerAdapter(requireActivity(), owner, repo)
         binding.pager.adapter = pagerAdapter

@@ -9,7 +9,6 @@
   <fragment
     android:id="@+id/main_fragment"
     android:name="com.livehappyapps.githubviewer.ui.main.MainFragment"
-    android:label="MainFragment"
     tools:layout="@layout/fragment_main">
     <action
       android:id="@+id/to_issue_container"
@@ -29,7 +28,6 @@
   <fragment
     android:id="@+id/issue_container_fragment"
     android:name="com.livehappyapps.githubviewer.ui.issues.IssueContainerFragment"
-    android:label="fragment_issue_container"
     tools:layout="@layout/fragment_issue">
     <argument
       android:name="owner"
@@ -43,6 +41,5 @@
   <fragment
     android:id="@+id/settings_fragment"
     android:name="com.livehappyapps.githubviewer.ui.settings.SettingsFragment"
-    android:label="SettingsFragment"
     tools:layout="@layout/fragment_preferences" />
 </navigation>

@@ -19,7 +19,6 @@
       android:layout_height="wrap_content"
       app:contentScrim="@color/primary"
       app:layout_scrollFlags="scroll|exitUntilCollapsed"
-      app:title="@string/app_name"
       app:titleEnabled="false">
 
       <androidx.constraintlayout.widget.ConstraintLayout
