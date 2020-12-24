@@ -8,7 +8,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="issueContainerFragment">
+                  <entry key="issue_container_fragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -20,7 +20,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="mainFragment">
+                  <entry key="main_fragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -31,12 +31,12 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_mainFragment_to_settingsFragment">
+                            <entry key="to_issue_container">
                               <value>
                                 <LayoutPositions />
                               </value>
                             </entry>
-                            <entry key="to_issueContainer">
+                            <entry key="to_settings">
                               <value>
                                 <LayoutPositions />
                               </value>
@@ -46,7 +46,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="settingsFragment">
+                  <entry key="settings_fragment">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">

@@ -1,6 +1,5 @@
 package com.livehappyapps.githubviewer.ui.main
 
-import android.app.ActivityOptions
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +19,6 @@ import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.SettingsKey
 import com.livehappyapps.githubviewer.data.Resource
 import com.livehappyapps.githubviewer.databinding.FragmentMainBinding
-import com.livehappyapps.githubviewer.ui.issues.IssueContainerFragment
 import com.livehappyapps.githubviewer.utils.setTextOrHide
 import com.livehappyapps.githubviewer.utils.toastShort
 import org.koin.android.ext.android.inject
