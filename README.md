@@ -7,12 +7,13 @@
 </p>
 
 
-## Architecture (TODO)
-This area is a work a progress, but the goal is to use Room for persistence and as the single source of truth (SSOT). The Repository layer will consist solely of RxJava while the ViewModel will expose Android LiveData components for the UI.
+## Architecture
+Uses Room for persistence and as the single source of truth (SSOT). The Repository layer consist solely of RxJava while the ViewModel exposes Android LiveData components for the UI.
 
 ## Libraries Used
 
 ### Android JetPack & Views
+- [Navigation](https://developer.android.com/guide/navigation)
 - [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
 - [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
 - [ConstraintLayout](https://developer.android.com/training/constraint-layout/index.html)
