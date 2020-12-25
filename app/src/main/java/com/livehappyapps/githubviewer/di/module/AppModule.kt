@@ -5,8 +5,8 @@ import com.livehappyapps.githubviewer.data.IssueRepository
 import com.livehappyapps.githubviewer.data.MainRepository
 import com.livehappyapps.githubviewer.data.local.GithubDatabase
 import com.livehappyapps.githubviewer.data.remote.api.GithubApi
-import com.livehappyapps.githubviewer.ui.viewmodel.IssueViewModel
-import com.livehappyapps.githubviewer.ui.viewmodel.MainViewModel
+import com.livehappyapps.githubviewer.ui.issues.IssueViewModel
+import com.livehappyapps.githubviewer.ui.main.MainViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module

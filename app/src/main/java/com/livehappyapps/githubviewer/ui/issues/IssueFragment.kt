@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.ui.fragment
+package com.livehappyapps.githubviewer.ui.issues
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -14,8 +15,6 @@ import com.livehappyapps.githubviewer.IssueState
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.data.Resource
 import com.livehappyapps.githubviewer.databinding.FragmentIssueBinding
-import com.livehappyapps.githubviewer.ui.adapter.IssueAdapter
-import com.livehappyapps.githubviewer.ui.viewmodel.IssueViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -92,11 +91,11 @@ class IssueFragment : Fragment() {
 
         fun newInstance(state: IssueState, owner: String?, repo: String?) =
             IssueFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable(ARG_ISSUE_STATE, state)
-                    putString(ARG_OWNER, owner)
-                    putString(ARG_REPO, repo)
-                }
+                arguments = bundleOf(
+                    ARG_ISSUE_STATE to state,
+                    ARG_OWNER to owner,
+                    ARG_REPO to repo,
+                )
             }
     }
 }

@@ -1,4 +1,4 @@
-package com.livehappyapps.githubviewer.ui.viewmodel
+package com.livehappyapps.githubviewer.ui.issues
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

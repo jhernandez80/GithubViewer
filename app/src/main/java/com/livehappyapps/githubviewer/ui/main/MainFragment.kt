@@ -1,13 +1,15 @@
-package com.livehappyapps.githubviewer.ui.activity
+package com.livehappyapps.githubviewer.ui.main
 
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -16,25 +18,32 @@ import com.livehappyapps.githubviewer.Config
 import com.livehappyapps.githubviewer.R
 import com.livehappyapps.githubviewer.SettingsKey
 import com.livehappyapps.githubviewer.data.Resource
-import com.livehappyapps.githubviewer.databinding.ActivityMainBinding
-import com.livehappyapps.githubviewer.ui.adapter.RepoAdapter
-import com.livehappyapps.githubviewer.ui.viewmodel.MainViewModel
+import com.livehappyapps.githubviewer.databinding.FragmentMainBinding
 import com.livehappyapps.githubviewer.utils.setTextOrHide
 import com.livehappyapps.githubviewer.utils.toastShort
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity : AppCompatActivity() {
+class MainFragment : Fragment() {
 
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: FragmentMainBinding
+
+    private val navController by lazy { findNavController() }
     private val preferences: SharedPreferences by inject()
     private val viewModel: MainViewModel by viewModel()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        setSupportActionBar(binding.toolbar)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        binding = FragmentMainBinding.inflate(inflater)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initializeToolbar()
 
         binding.swipeRefresh.apply {
             setColorSchemeColors(ContextCompat.getColor(context, R.color.accent))
@@ -46,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val repoAdapter = RepoAdapter { owner, repo ->
-            startActivity(IssueActivity.newInstance(this, owner, repo))
+            navController.navigate(MainFragmentDirections.toIssueContainer(owner, repo))
         }
         binding.recycler.apply {
             layoutManager = LinearLayoutManager(context)
@@ -54,7 +63,7 @@ class MainActivity : AppCompatActivity() {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        viewModel.organization.observe(this) { resource ->
+        viewModel.organization.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Success -> {
                     val org = resource.data
@@ -71,11 +80,11 @@ class MainActivity : AppCompatActivity() {
                 }
                 is Resource.Error -> {
                     Log.d(TAG, resource.message)
-                    toastShort(getString(R.string.unfortunately_an_error_occurred))
+                    requireContext().toastShort(getString(R.string.unfortunately_an_error_occurred))
                 }
             }
         }
-        viewModel.repos.observe(this) { resource ->
+        viewModel.repos.observe(viewLifecycleOwner) { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     binding.progress.isVisible = !binding.swipeRefresh.isRefreshing
@@ -89,26 +98,28 @@ class MainActivity : AppCompatActivity() {
                     binding.progress.isVisible = false
                     binding.swipeRefresh.isRefreshing = false
                     Log.d(TAG, resource.message)
-                    toastShort(getString(R.string.unfortunately_an_error_occurred))
+                    requireContext().toastShort(getString(R.string.unfortunately_an_error_occurred))
                 }
             }
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main, menu)
-        return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.settings -> startActivity(SettingsActivity.newInstance(this))
+    private fun initializeToolbar() {
+        binding.toolbar.inflateMenu(R.menu.main)
+        binding.toolbar.setTitle(R.string.app_name)
+        binding.toolbar.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.settings -> {
+                    navController.navigate(MainFragmentDirections.toSettings())
+                    true
+                }
+                else -> false
+            }
         }
-        return super.onOptionsItemSelected(item)
     }
 
     companion object {
 
-        private val TAG = MainActivity::class.java.simpleName
+        private val TAG = MainFragment::class.java.simpleName
     }
 }
